@@ -8,6 +8,7 @@ class News extends React.Component {
         return (
             
             <div key = {dataNews.id}>
+                <p><b>{dataNews.author}</b></p>
                 {dataNews.title}
                 <div dangerouslySetInnerHTML={{ __html: dataNews.content }}/>
                 {dataNews.isSpecial && <u>IS SPECIAL NEWS</u>}

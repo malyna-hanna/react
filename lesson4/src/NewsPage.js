@@ -44,7 +44,7 @@ export class NewsPage extends React.Component {
 
     getNews(){
         const {photoFilter, linkFilter, specialFilter, searchFilter} = this.state;
-
+        const searchFilterText = searchFilter.toLowerCase();
         const news = newsData.filter((item) => {
             if (linkFilter && !item.link) {
                 return false;
@@ -55,8 +55,11 @@ export class NewsPage extends React.Component {
             if (photoFilter && !item.photo) {
                 return false;
             }
-            if (item.title.toLowerCase().indexOf(searchFilter.toLowerCase()) < 0 && searchFilter) {
-                return false;
+            if (searchFilter) {
+                const searchByTitle = item.title.toLowerCase().indexOf(searchFilterText) >= 0;
+                const searchByContent = item.content.toLowerCase().indexOf(searchFilterText) >= 0;
+                const searchByAuthor = item.author.toLowerCase().indexOf(searchFilterText) >= 0;
+                return (searchByTitle || searchByContent || searchByAuthor);
             }
             return true;
         });
